@@ -1,0 +1,16 @@
+{
+  "name": "parse",
+  "version": "0.1.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Philipp Bock <p@philippbock.de> (http://philippbock.de/)",
+  "license": "MIT",
+  "dependencies": {
+    "iconv": "^2.2.1",
+    "node-zxing": "^0.1.4"
+  }
+}
