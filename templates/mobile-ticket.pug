@@ -1,0 +1,59 @@
+doctype html
+html(lang="de")
+	head
+		meta(name="viewport", content="width=device-width, initial-scale=1")
+		link(href="assets/css/mobile-ticket.css", rel="stylesheet")
+		title= `Fahrkarte nach ${ticket.segments.outbound.to}`
+	body
+		header.main-header
+			.wrapper
+				h1.title
+					span.title-ticket Fahrkarte
+					=' '
+					span.title-product-class= ticket.segments.productClass
+		main
+			.wrapper
+				section.legs
+					p.leg.leg-outbound
+						span.leg-from= ticket.segments.outbound.from
+						=' '
+						span.leg-word-to ▸
+						=' '
+						span.leg-to= ticket.segments.outbound.to
+					if ticket.segments.inbound
+						p.leg.leg-inbound
+							span.leg-from= ticket.segments.inbound.from
+							=' '
+							span.leg-word-to ▸
+							=' '
+							span.leg-to= ticket.segments.inbound.to
+				section.validity
+					p= validityString(ticket.segments.validFrom, ticket.segments.validUntil)
+				section.barcode
+					p
+						img.barcode-img(src=aztecURL)
+				section
+					p.class= `${ticket.segments.fareClass}. Klasse`
+				section
+					h1.section-title Fahrgäste
+					p.passengers
+						= `${ticket.segments.adults} Erwachsene${ticket.segments.adults === 1 ? '(r)':''}`
+						- if (ticket.segments.children)
+							= `, ${ticket.segments.children} Kind${ticket.segments.children !== 1 ? 'er':''}`
+				if (ticket.segments.bahnCards)
+					section.bahn-card
+						h1.section-title BahnCard
+						p= `${ticket.segments.bahnCards} ${ticket.segments.bahnCardTypes}`
+				section.identification
+					h1.section-title Wie Sie sich identifizieren
+					p!= identification
+				section.via
+					h1.section-title Geltungsbereich
+					p= ticket.segments.via
+				section.small-print
+					h1.section-title Kleingedrucktes
+					h2.section-subtitle Auftragsnummer
+					p= ticket.header.pnr
+					h2.section-subtitle= ticket.segments.certificates.length > 1 ? 'Zertifikate' : 'Zertifikat'
+					each certificate in ticket.segments.certificates
+						p=certificate.id
