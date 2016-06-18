@@ -28,7 +28,7 @@ function validityString(validFrom, validUntil) {
 
 function convertPdfToMobileTicket(pdf) {
 	let aztecContent, image;
-	extractImage(pdf)
+	return extractImage(pdf)
 		.then(i => {
 			image = i;
 			return i;
@@ -42,6 +42,7 @@ function convertPdfToMobileTicket(pdf) {
 		.then(ticket => {
 			// console.log(ticket);
 			const datauri = new Datauri();
+			const filebase = ticket.header.pnr + Date.now();
 			datauri.format('.png', image);
 
 			const identificationStrings = {
@@ -65,13 +66,14 @@ function convertPdfToMobileTicket(pdf) {
 				validityString,
 				identification,
 			});
-			fs.writeFileSync(path.resolve(__dirname, '../src/'+ticket.header.pnr+'.html'), html);
 
 			const manifest = [ 'CACHE MANIFEST', '', 'index.html', 'assets/css/mobile-ticket.css' ];
-			fs.writeFileSync(path.resolve(__dirname, '../src/index.appcache'), manifest.join('\n'));
+			return Promise.all([
+				fs.outputFile(path.resolve(__dirname, '../src/tickets/', filebase, 'index.appcache'), manifest.join('\n')),
+				fs.outputFile(path.resolve(__dirname, '../src/tickets/', filebase, 'index.html'), html),
+			])
+			.then(() => ({ filebase, ticket }));
 		})
-		.catch(e => console.log(e.stack))
 }
 
-fs.readFile(process.argv[2])
-	.then(convertPdfToMobileTicket);
+module.exports = convertPdfToMobileTicket;
