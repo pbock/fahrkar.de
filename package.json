@@ -10,7 +10,8 @@
   "author": "Philipp Bock <p@philippbock.de> (http://philippbock.de/)",
   "license": "MIT",
   "dependencies": {
-    "iconv": "^2.2.1",
-    "node-zxing": "^0.1.4"
+    "canvas": "^1.3.16",
+    "fs-promise": "^0.5.0",
+    "iconv": "^2.2.1"
   }
 }
