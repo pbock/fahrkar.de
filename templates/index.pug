@@ -1,0 +1,38 @@
+doctype html
+html(lang="de")
+	head
+		meta(charset="utf8")
+		meta(name="viewport", content="width=device-width, initial-scale=1")
+		link(href="assets/css/fahrkarte.css", rel="stylesheet")
+		link(href="assets/images/apple-touch-icon.png", rel="apple-touch-icon")
+		title Fahrkar.de
+	body
+		header.main-header
+			.wrapper
+				h1
+					| Fahrkar.de
+					=' '
+					span.bullshit 4.0
+		main
+			.wrapper.body
+				img.mockup.mod-large(src="assets/images/mockup.png")
+				p.hero.
+					Kein Drucker für dein Online-Ticket?<br>
+					Keine Lust, den DB Navigator herunterzuladen?
+				p.instructions.
+					Leite deine DB-Buchungsbestätigung an <a href="mailto:bahn@fahrkar.de">bahn@fahrkar.de</a>
+					weiter und wir wandeln deine PDF-Fahrkarte in eine mobile Fahrkarte um, die du ganz ohne zusätzliche Apps
+					auf deinem Telefon öffnen kannst.
+				p(style="text-align: center")
+					img.mockup.mod-small(src="assets/images/mockup.png")
+		footer.main-footer
+			.wrapper
+				p.disclaimer.
+					Dies ist kein Angebot der Deutsche Bahn AG – es handelt sich lediglich
+					um eine Machbarkeitsstudie.
+					<strong>Wir stellen keine gültigen Fahrkarten aus.
+					Obwohl unsere Fahrkarten dieselben Daten enthalten, solltest du unbedingt
+					mit einer gültigen Fahrkarte der Deutschen Bahn reisen.</strong>
+				p.impressum
+					a(href="impressum") Impressum und Datenschutz
+					
