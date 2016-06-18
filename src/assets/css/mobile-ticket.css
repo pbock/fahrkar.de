@@ -58,17 +58,31 @@ body {
 	box-sizing: border-box;
 }
 .main-header {
-	padding: .4em 0;
+	padding: .4em 0 .4em;
 	border-bottom: 2px solid #f00;
 }
+.title {
+	margin-bottom: .5em;
+}
 .title-ticket {
-	font-size: 1.2em;
+	font-size: 1.4em;
+	font-weight: 200;
 }
 .title-product-class {
 	font-style: italic;
 	font-weight: 600;
 	opacity: .5;
 	margin-left: .5em;
+}
+.group {
+	display: flex;
+}
+.group > * {
+	flex-grow: 1;
+}
+.validity {
+	font-weight: 200;
+	margin-bottom: .4em;
 }
 img {
 	max-width: 100%;
@@ -85,16 +99,13 @@ main section {
 	margin: .5em 0;
 }
 
-.leg-from {
-}
 .leg-word-from, .leg-word-to {
 	opacity: .5;
 }
 .leg-from {
-	opacity: .7;
+	font-weight: 200;
 }
 .leg-to {
-	font-size: 1.1em;
 }
 
 .section-title {
@@ -104,6 +115,9 @@ main section {
 	font-weight: 600;
 	text-transform: uppercase;
 	letter-spacing: .05em;
+}
+.passenger-name {
+	font-weight: 200;
 }
 .identification p {
 	font-weight: 200;

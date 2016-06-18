@@ -1,8 +1,12 @@
 doctype html
 html(lang="de")
 	head
+		meta(charset="utf8")
 		meta(name="viewport", content="width=device-width, initial-scale=1")
+		meta(name="apple-mobile-web-app-capable", content="yes")
+		meta(name="apple-mobile-web-app-title", content="▸ " + ticket.segments.outbound.to)
 		link(href="assets/css/mobile-ticket.css", rel="stylesheet")
+		link(href="assets/images/apple-touch-icon.png", rel="apple-touch-icon")
 		title= `Fahrkarte nach ${ticket.segments.outbound.to}`
 	body
 		header.main-header
@@ -11,8 +15,8 @@ html(lang="de")
 					span.title-ticket Fahrkarte
 					=' '
 					span.title-product-class= ticket.segments.productClass
-		main
-			.wrapper
+				section.validity
+					p= validityString(ticket.segments.validFrom, ticket.segments.validUntil)
 				section.legs
 					p.leg.leg-outbound
 						span.leg-from= ticket.segments.outbound.from
@@ -27,23 +31,28 @@ html(lang="de")
 							span.leg-word-to ▸
 							=' '
 							span.leg-to= ticket.segments.inbound.to
-				section.validity
-					p= validityString(ticket.segments.validFrom, ticket.segments.validUntil)
+		main
+			.wrapper
 				section.barcode
 					p
 						img.barcode-img(src=aztecURL)
 				section
 					p.class= `${ticket.segments.fareClass}. Klasse`
-				section
-					h1.section-title Fahrgäste
-					p.passengers
-						= `${ticket.segments.adults} Erwachsene${ticket.segments.adults === 1 ? '(r)':''}`
-						- if (ticket.segments.children)
-							= `, ${ticket.segments.children} Kind${ticket.segments.children !== 1 ? 'er':''}`
-				if (ticket.segments.bahnCards)
-					section.bahn-card
-						h1.section-title BahnCard
-						p= `${ticket.segments.bahnCards} ${ticket.segments.bahnCardTypes}`
+				div.group
+					section
+						h1.section-title Fahrgäste
+						p.passengers
+							= `${ticket.segments.adults} Erwachsene${ticket.segments.adults === 1 ? '(r)':''}`
+							- if (ticket.segments.children)
+								= `, ${ticket.segments.children} Kind${ticket.segments.children !== 1 ? 'er':''}`
+						p.passenger-name
+							= `${ticket.segments.passenger.firstName} ${ticket.segments.passenger.lastName}`
+							if ((ticket.segments.adults + ticket.segments.children) > 1)
+								= " + " + (ticket.segments.adults + ticket.segments.children - 1)
+					if (ticket.segments.bahnCards)
+						section.bahn-card
+							h1.section-title BahnCard
+							p= `${ticket.segments.bahnCards} ${ticket.segments.bahnCardTypes}`
 				section.identification
 					h1.section-title Wie Sie sich identifizieren
 					p!= identification

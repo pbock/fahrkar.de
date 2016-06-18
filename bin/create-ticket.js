@@ -13,6 +13,8 @@ const parsePayload = require('../lib/parse-payload');
 
 const template = pug.compile(fs.readFileSync(path.resolve(__dirname, '../templates/mobile-ticket.pug')));
 
+moment.locale('de');
+
 function validityString(validFrom, validUntil) {
 	const format = 'D. MMMM Y';
 	const from = moment(validFrom);
@@ -63,7 +65,10 @@ function convertPdfToMobileTicket(pdf) {
 				validityString,
 				identification,
 			});
-			fs.writeFileSync(path.resolve(__dirname, '../src/index.html'), html);
+			fs.writeFileSync(path.resolve(__dirname, '../src/'+ticket.header.pnr+'.html'), html);
+
+			const manifest = [ 'CACHE MANIFEST', '', 'index.html', 'assets/css/mobile-ticket.css' ];
+			fs.writeFileSync(path.resolve(__dirname, '../src/index.appcache'), manifest.join('\n'));
 		})
 		.catch(e => console.log(e.stack))
 }
